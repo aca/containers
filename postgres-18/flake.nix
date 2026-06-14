@@ -21,6 +21,13 @@
             ps.timescaledb
           ]);
 
+          # Minimal glibc locale archive (just en_US.UTF-8) — the scratch image
+          # has no system locales, so initdb would otherwise fall back to "C".
+          locales = pkgs.glibcLocales.override {
+            allLocales = false;
+            locales = [ "en_US.UTF-8/UTF-8" ];
+          };
+
           postgresqlConf = pkgs.writeText "postgresql.conf" ''
             shared_preload_libraries = 'timescaledb'
             listen_addresses = '*'
@@ -41,7 +48,7 @@
               chown postgres:postgres "$PGDATA" /run/postgresql
 
               if [ ! -s "$PGDATA/PG_VERSION" ]; then
-                su-exec postgres initdb -U postgres --encoding=UTF8 "$PGDATA"
+                su-exec postgres initdb -U postgres --locale=en_US.utf8 "$PGDATA"
               fi
 
               install -m 600 -o postgres -g postgres ${postgresqlConf} "$PGDATA/postgresql.conf"
@@ -67,7 +74,11 @@
               Entrypoint = [ "${entrypoint}/bin/entrypoint" ];
               ExposedPorts = { "5432/tcp" = { }; };
               Volumes = { "/var/lib/postgresql/data" = { }; };
-              Env = [ "PGDATA=/var/lib/postgresql/data" ];
+              Env = [
+                "PGDATA=/var/lib/postgresql/data"
+                "LANG=en_US.utf8"
+                "LOCALE_ARCHIVE=${locales}/lib/locale/locale-archive"
+              ];
             };
           };
         });

@@ -22,6 +22,7 @@ NixOS (`oci-containers`) and non-NixOS (docker/podman).
 - On first start the entrypoint runs `initdb`, applies `postgresql.conf`/`pg_hba.conf`,
   then drops privileges to the `postgres` user before exec'ing the server
 - Data directory: `/var/lib/postgresql/data` (overridable via the `PGDATA` env var)
+- Locale: the cluster is initialized with `en_US.utf8` (matching the official postgres image; a minimal glibc locale archive is bundled)
 - Exposed port: `5432`
 
 ### Published tags
