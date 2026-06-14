@@ -1,0 +1,43 @@
+name: postgres-18 image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - postgres-18/**
+      - .github/workflows/postgres-18.yml
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Build image
+        run: nix build ./postgres-18#container -L
+
+      - name: Load image
+        run: docker load < result
+
+      - name: Log in to ghcr.io
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Tag and push
+        run: |
+          image="ghcr.io/${{ github.repository }}/postgres-18"
+          docker tag postgres-18:latest "$image:latest-${{ matrix.arch }}"
+          docker push "$image:latest-${{ matrix.arch }}"
