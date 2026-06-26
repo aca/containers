@@ -102,6 +102,9 @@
             max_wal_senders = 20
             max_replication_slots = 20
             max_logical_replication_workers = 20
+            # Enable pgactive DDL replication. Must be identical on every node in
+            # the group, otherwise a node can't join / pgactive workers won't start.
+            pgactive.skip_ddl_replication = false
           '';
 
           pgHbaConf = pkgs.writeText "pg_hba.conf" ''
