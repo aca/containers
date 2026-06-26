@@ -107,6 +107,8 @@
           pgHbaConf = pkgs.writeText "pg_hba.conf" ''
             local all all trust
             host  all all 0.0.0.0/0 trust
+            local replication all         trust
+            host  replication all 0.0.0.0/0 trust
           '';
 
           entrypoint = pkgs.writeShellApplication {
