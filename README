@@ -1,21 +1,10 @@
 Containers
 ==========
 
-Reproducible OCI images built with Nix.
-
+OCI images, primarily based on Nix.
 
 postgres-18
------------
-
-PostgreSQL 18, built from source, bundled with the following extensions:
-
-  * pgactive - active-active logical replication
-  * pg_rational - exact rational number type
-  * timescaledb - time-series partitioning and compression
-  * pgvector - vector similarity search
-
-Available images:
-
+  PostgreSQL 18 with pgactive, pg_rational, timescaledb, pgvector.
   * ghcr.io/aca/containers/postgres-18:latest
   * ghcr.io/aca/containers/postgres-18:latest-amd64
   * ghcr.io/aca/containers/postgres-18:latest-arm64
