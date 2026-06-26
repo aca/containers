@@ -5,6 +5,6 @@ OCI images, primarily based on Nix.
 
 postgres-18
   PostgreSQL 18 with pgactive, pg_rational, timescaledb, pgvector.
-  * ghcr.io/aca/containers/postgres-18:latest
-  * ghcr.io/aca/containers/postgres-18:latest-amd64
-  * ghcr.io/aca/containers/postgres-18:latest-arm64
+  - ghcr.io/aca/containers/postgres-18:latest
+  - ghcr.io/aca/containers/postgres-18:latest-amd64
+  - ghcr.io/aca/containers/postgres-18:latest-arm64
