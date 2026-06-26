@@ -4,8 +4,12 @@ A pinned PostgreSQL 18 OCI image. **One image** to run the same postgres on both
 NixOS (`oci-containers`) and non-NixOS (docker/podman).
 
 - PostgreSQL 18 (pinned to `release-26.05` nixpkgs via `flake.lock`)
-- Extensions: `pgvector`, `pg_rational`, `timescaledb` (TimescaleDB is preloaded via `shared_preload_libraries`)
+- Extensions: `pgvector`, `pg_rational`, `timescaledb`, `pgactive`
+- Preloaded extensions: `timescaledb`, `pgactive`
 - Connection settings: `listen_addresses = '*'`, `host all all 0.0.0.0/0 trust`
+- Logical replication settings for pgactive: `wal_level = logical`, `track_commit_timestamp = on`,
+  `max_worker_processes = 20`, `max_wal_senders = 20`, `max_replication_slots = 20`,
+  `max_logical_replication_workers = 20`
 
 > ⚠️ Authentication defaults to `trust` (no password). For trusted private networks only. Do not expose to the internet.
 
@@ -14,15 +18,18 @@ NixOS (`oci-containers`) and non-NixOS (docker/podman).
 | File | Purpose |
 |---|---|
 | `flake.nix` | OCI image definition (`packages.<system>.container`) — postgres package + entrypoint. |
+| `pgactive-smoke-test.md` | Two-container active-active replication smoke test for `pgactive`. |
 | `.github/workflows/postgres-18.yml` | Build per-arch images and push to GHCR. |
 
 ## Image
 
 - Lightweight image based on `dockerTools.buildLayeredImage` (no systemd required)
+- `pgactive` is built from `github:aws/pgactive`, pinned by `flake.lock`
 - On first start the entrypoint runs `initdb`, applies `postgresql.conf`/`pg_hba.conf`,
   then drops privileges to the `postgres` user before exec'ing the server
 - Data directory: `/var/lib/postgresql/data` (overridable via the `PGDATA` env var)
 - Locale: the cluster is initialized with `en_US.utf8` (matching the official postgres image; a minimal glibc locale archive is bundled)
+- `/tmp` is present with mode `1777`, which `pgactive` background workers require
 - Exposed port: `5432`
 
 ### Published tags
@@ -131,5 +138,7 @@ docker run -d --name pg -p 5432:5432 postgres-18:latest
 
 # Verify extensions
 docker exec pg psql -U postgres -c \
-  "create extension vector; create extension timescaledb; create extension pg_rational;"
+  "create extension vector; create extension timescaledb; create extension pg_rational; create extension pgactive;"
 ```
+
+For an end-to-end `pgactive` replication check, see [`pgactive-smoke-test.md`](./pgactive-smoke-test.md).

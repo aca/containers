@@ -16,9 +16,26 @@
         "type": "github"
       }
     },
+    "pgactiveSrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780065418,
+        "narHash": "sha256-utxv9WSX/uhME7TDRa8UrKyz9ttGpAimlNUtcnk7mmo=",
+        "owner": "aws",
+        "repo": "pgactive",
+        "rev": "cd7f726b6efd1500bd0211813a4325e895bcdcf2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aws",
+        "repo": "pgactive",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "pgactiveSrc": "pgactiveSrc"
       }
     }
   },
