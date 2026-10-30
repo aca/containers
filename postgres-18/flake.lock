@@ -1,0 +1,81 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1780400585,
+        "narHash": "sha256-QGbXhs6gSMg8w+kNco0UY5RVX0V1GWy+B/HGGPfU3dY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7fdb15681cb5daa386e25abe7ce611d2744ecc83",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "pgClickhouseSrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790710547,
+        "narHash": "sha256-dp49qqcwGKsgqg2Ro1tPdcKDyQqFR6j86o22HxIR8RM=",
+        "ref": "refs/tags/v0.11.0",
+        "rev": "c4fc5dc3539c546017c5fcb7dce9635cf87873a2",
+        "revCount": 297,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/ClickHouse/pg_clickhouse"
+      },
+      "original": {
+        "ref": "refs/tags/v0.11.0",
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/ClickHouse/pg_clickhouse"
+      }
+    },
+    "pgactiveSrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780065418,
+        "narHash": "sha256-utxv9WSX/uhME7TDRa8UrKyz9ttGpAimlNUtcnk7mmo=",
+        "owner": "aws",
+        "repo": "pgactive",
+        "rev": "cd7f726b6efd1500bd0211813a4325e895bcdcf2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aws",
+        "repo": "pgactive",
+        "type": "github"
+      }
+    },
+    "pgqueSrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785034267,
+        "narHash": "sha256-7h6L3kfTaDflyL9iDD8P3+KmO6W8j/slTuwMx9oQPIQ=",
+        "owner": "NikolayS",
+        "repo": "pgque",
+        "rev": "95d5c3c12bccab8f917167659cfe0ba4d64e38ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NikolayS",
+        "repo": "pgque",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "pgClickhouseSrc": "pgClickhouseSrc",
+        "pgactiveSrc": "pgactiveSrc",
+        "pgqueSrc": "pgqueSrc"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

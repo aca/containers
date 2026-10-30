@@ -1,0 +1,19 @@
+Containers
+==========
+
+OCI images, primarily based on Nix.
+
+postgres-18
+  PostgreSQL 18 with pgactive, pg_rational, pg_clickhouse, pgvector, and pgque SQL scripts.
+  - ghcr.io/aca/containers/postgres-18:latest-amd64
+  - ghcr.io/aca/containers/postgres-18:latest-arm64
+
+postgres-19
+  PostgreSQL 19 with pgactive, pg_rational, pg_clickhouse, pgvector, and pgque SQL scripts.
+  - ghcr.io/aca/containers/postgres-19:latest-amd64
+  - ghcr.io/aca/containers/postgres-19:latest-arm64
+
+clickhouse-26.8
+  ClickHouse 26.8 LTS with HTTP (8123) and native (9000) interfaces.
+  - ghcr.io/aca/containers/clickhouse-26.8:latest-amd64
+  - ghcr.io/aca/containers/clickhouse-26.8:latest-arm64
